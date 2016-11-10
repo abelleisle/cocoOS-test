@@ -20,7 +20,7 @@ CPPWARN = -Wall -Wextra
 #Directories and Files
 INCDIR = inc
 SRCDIR = src
-OBJDIR = out
+OBJDIR = obj
 SRC    = $(wildcard $(SRCDIR)/*.c)
 OBJ    = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))
 
@@ -29,10 +29,6 @@ BINDIR = bin
 EXEC = $(BINDIR)/main.out
 
 all: $(EXEC)
-
-clean:
-		rm -f $(EXEC)
-		rm -f out/*.o
 
 $(EXEC): $(OBJDIR)/$(OBJ) main.c
 		@echo "  CC/LD  main"
@@ -43,3 +39,7 @@ $(EXEC): $(OBJDIR)/$(OBJ) main.c
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 		@echo "  CC    " $<
 		@$(CC) $(BUILDFLAGS) -I$(INCDIR) -c $< -o $@
+
+clean:
+		rm -f $(OBJDIR)/*.o
+		rm -f $(BINDIR)/*
